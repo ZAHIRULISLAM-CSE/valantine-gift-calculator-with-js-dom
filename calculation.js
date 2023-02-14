@@ -49,20 +49,25 @@ document.getElementById("rose-buy-btn").addEventListener("click",function(){
     setTotalPrice(diaryPrice);
     document.getElementById("diary-quantity").value="";
  })
- let count=0;
  document.getElementById("btn-apply").addEventListener("click",function(){
-    if(count ==1){
-        return;
-    }
     const promoCode=document.getElementById("promo-code").value;
     currentTotal= document.getElementById("all-total").innerText;
     if(promoCode == 101){
         discount=currentTotal*0.1;
-        count++;
+        document.getElementById("btn-apply").setAttribute("disabled",true);
     }
     document.getElementById("all-total").innerText=currentTotal-discount;
-
  })
+ document.getElementById("btn-clear").addEventListener("click",function(){
+    clear("chocolate");
+    clear("rose");
+    clear("diary");
+    clear("total");
+    clear("all-total");
+    document.getElementById("promo-code").value="";
+    document.getElementById("btn-apply").removeAttribute("disabled");
+ })
+
 function getFieldQuantityValue(id){
    let quantity= document.getElementById(id).value;
    quantity=parseInt(quantity);
@@ -83,4 +88,7 @@ function setTotalPrice(singleItemPrice){
     const currentTotal=previousTotal+singleItemPrice;
     document.getElementById("total").innerText=currentTotal;
     document.getElementById("all-total").innerText=currentTotal;
+}
+function clear(id){
+    document.getElementById(id).innerText="00";
 }
